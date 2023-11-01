@@ -17,8 +17,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                    border-neutral-800
                    ">
                         {children}
-
-                        // test
                     </div>
                 </div>
             </div>
