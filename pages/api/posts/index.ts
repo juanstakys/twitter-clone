@@ -21,7 +21,7 @@ export default async function handler(
                     userId: currentUser.id
                 }
             })
-            return res.status(200).json(post)
+            return res.status(201).json(post)
         }
         if (req.method === 'GET') {
             const { userId } = req.query
