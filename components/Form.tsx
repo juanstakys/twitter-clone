@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import Button from "./Button";
 import Avatar from "./Avatar";
+import usePost from "@/hooks/usePost";
 
 interface FormProps {
     placeholder: string;
@@ -23,8 +24,8 @@ const Form: React.FC<FormProps> = ({
     const loginModal = useLoginModal();
 
     const { data: currentUser } = useCurrentUser();
-    const { mutate: mutatePosts } = usePosts(postId as string);
-
+    const { mutate: mutatePosts } = usePosts();
+    const { mutate: mutatePost } = usePost(postId as string)
 
     const [body, setBody] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -41,12 +42,13 @@ const Form: React.FC<FormProps> = ({
 
             setBody("");
             mutatePosts();
+            mutatePost();
         } catch (error) {
             toast.error('Something went wrong');
         } finally {
             setIsLoading(false);
         }
-    }, [body, mutatePosts, isComment, postId])
+    }, [body, mutatePosts, mutatePost, isComment, postId])
 
     return (
         <div className="border-b-[1px] border-neutral-800 px-5 py-2">
